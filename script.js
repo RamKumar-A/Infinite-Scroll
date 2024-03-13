@@ -7,6 +7,8 @@ let loading = false;
 
 function fetchData() {
   loading = true;
+
+  // including debouncing for improving performance
   setTimeout(() => {
     const list = Array.from({ length: 20 }, (_, i) => {
       const item = document.createElement('li');
@@ -19,13 +21,15 @@ function fetchData() {
   }, 500);
 }
 
-console.log(listContainer);
+// console.log(listContainer);
 
 function handleScroll() {
   if (loading) return;
   const scrollTop = listContainer.scrollTop;
   const windowHeight = listContainer.clientHeight;
   const documentHeight = listContainer.scrollHeight;
+
+  // detecting the bottom of the container
   if (scrollTop + windowHeight >= documentHeight - 100) {
     fetchData();
     page++;
